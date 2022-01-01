@@ -3,7 +3,7 @@ import Movie from "../components/Movie";
 
 export default function Movies({ movies }) {
     return (
-        <div className="h-full bg-[#151515] text-white">
+        <div className="">
 
             <div className="py-8 px-4">
                 <h1 className="text-4xl">Top 20 Movies of All Time</h1>
@@ -18,6 +18,7 @@ export default function Movies({ movies }) {
 
                 {movies.map((movie) => (
 
+
                     <Movie key={movie._id} movie={movie} />
 
                 ))}
@@ -27,7 +28,7 @@ export default function Movies({ movies }) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 
     const { db } = await connectToDatabase()
 

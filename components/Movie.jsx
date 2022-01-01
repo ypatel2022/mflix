@@ -5,12 +5,19 @@ import { useState } from "react"
 
 function Movie(props) {
 
-    const defaultImage = 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg'
+    const defaultImageSrc = 'https://images.assetsdelivery.com/compings_v2/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016.jpg'
+
 
     const movie = props.movie
 
 
-    let [isHovering, setIsHovering] = useState(false)
+    const [isHovering, setIsHovering] = useState(false)
+    const [imgSrc, setImgSrc] = useState(movie?.poster)
+
+    // if image does not exist
+    if (typeof imgSrc == 'undefined') {
+        setImgSrc(defaultImageSrc)
+    }
 
 
     return (
@@ -23,7 +30,14 @@ function Movie(props) {
             >
 
 
-                <img src={movie.poster} alt="" className={`w-full object-cover movie-transition max-h-72 ${isHovering ? '-translate-y-72' : 'h-72'}`} />
+                <img
+                    src={imgSrc}
+                    alt=""
+                    onError={() => {
+                        setImgSrc(defaultImageSrc)
+                    }}
+                    className={`w-full object-cover movie-transition max-h-72 ${isHovering ? '-translate-y-72' : 'h-72'}`}
+                />
 
 
 
@@ -35,7 +49,9 @@ function Movie(props) {
 
                     <div className="flex items-center">
                         <StarIcon className="w-5 inline-block" />
-                        <span>{movie.metacritic}</span>
+                        <span>{
+                            movie?.metacritic
+                        }</span>
                     </div>
 
                     <div className={`absolute left-0 top-20 turncate ${isHovering ? '' : 'hidden'}`}>
