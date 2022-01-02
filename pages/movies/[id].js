@@ -13,9 +13,13 @@ function Movie({ movie }) {
     }
 
     function convertRuntime(runtime) {
-        const mins = runtime % 60;
-        const hours = (runtime - mins) / 60;
-        return `${hours}h ${mins}m`
+        if (runtime) {
+
+            const mins = runtime % 60;
+            const hours = (runtime - mins) / 60;
+            return `${hours}h ${mins}m`
+        }
+        return ''
     }
 
 
@@ -34,14 +38,14 @@ function Movie({ movie }) {
 
 
                 <div>
-                    <p>{movie.year}</p>
+                    <p>{movie?.year}</p>
                     <h1 className="text-2xl md:text-3xl xl:text-5xl font-bold">{movie.title}</h1>
 
-                    <h3 className='xl:mt-4'>{`Rated ${movie.rated}`} &middot; {convertRuntime(movie.runtime)}</h3>
+                    <h3 className='xl:mt-4'>{`Rated ${movie?.rated}`} &middot; {convertRuntime(movie.runtime)}</h3>
 
                     <hr className='border-gray-700 my-2' />
 
-                    <p>{separateWithCommas(movie.genres)}</p>
+                    <p>{separateWithCommas(movie?.genres)}</p>
 
                 </div>
 
@@ -51,26 +55,31 @@ function Movie({ movie }) {
 
             <div className='p-8'>
 
-
-
-
                 <p>
-                    Directed by: {separateWithCommas(movie.directors)}
+                    <span className='font-semibold text-lg'>Directed by:</span> {separateWithCommas(movie?.directors)}
                 </p>
 
                 <p>
-                    Starring: {separateWithCommas(movie.cast)}
+                    <span className='font-semibold text-lg'>Starring:</span> {separateWithCommas(movie?.cast)}
                 </p>
 
-                <hr className='border-gray-700 my-2' />
 
-                <p>{movie.fullplot}</p>
 
                 <hr className='border-gray-700 my-2' />
+                <h1><span className='font-semibold text-lg'>Plot:</span></h1>
+                <p>{movie?.fullplot}</p>
 
-                <p>{`Metacritic ${movie.metacritic}`}</p>
-                <p>{`Rotten Tomatoes ${movie.tomatoes.viewer.meter}`}</p>
-                <p>{`IMDB ${movie.imdb.rating}`}</p>
+
+
+                <hr className='border-gray-700 my-2' />
+
+                <p><span className='font-semibold text-lg'>Metacritic</span> {movie?.metacritic}</p>
+
+                <p><span className='font-semibold text-lg'>Rotten Tomatoes</span> {movie?.tomatoes?.viewer?.meter}</p>
+
+                <p><span className='font-semibold text-lg'>IMDB</span> {movie?.imdb?.rating}</p>
+
+
 
 
             </div>
