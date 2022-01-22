@@ -97,7 +97,7 @@ export async function getServerSideProps({ query }) {
     // console.log(query);
 
     // get todo data from API
-    const res = await fetch(`http://localhost:3000//api/movies/${query.id}`)
+    const res = await fetch(`${process.env.API_ENDPOINT}/api/movies/${query.id}`)
     const movie = await res.json()
 
     // return props

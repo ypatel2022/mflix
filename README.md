@@ -33,6 +33,7 @@ Create a file called `.env.local` in the project directory and copy the followin
 ```sh
 MONGODB_URI=YOUR_CONNECTION_STRING_HERE
 MONGODB_DB=sample_mflix
+API_ENDPOINT=http://localhost:3000
 ```
 
 Start up the development server by typing:
