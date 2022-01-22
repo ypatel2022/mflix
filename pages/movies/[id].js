@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router'
 
 function Movie({ movie }) {
@@ -5,13 +6,13 @@ function Movie({ movie }) {
 
     movie = movie[0]
 
-    // console.log(movie)
 
-
+    // separate list items with commas
     function separateWithCommas(list) {
         return list.join(', ')
     }
 
+    // convert total runtime into mins and hours
     function convertRuntime(runtime) {
         if (runtime) {
 
@@ -26,7 +27,13 @@ function Movie({ movie }) {
     return (
         <div className='p-4'>
 
+            <Head>
+                <title>{"mflix: " + movie.title}</title>
+            </Head>
+
+
             <section className={`flex sm:items-end space-x-7 bg-gradient-to-b from-[#444444] to-inherit  p-8 rounded-md`}>
+
                 <img
                     className="object-cover h-2/3 w-1/3 sm:h-full sm:w-44 shadow-2xl rounded-md"
                     src={movie.poster}

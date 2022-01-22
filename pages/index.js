@@ -6,7 +6,9 @@ export default function Home({ isConnected }) {
   return (
 
     <div className=''>
-
+      <Head>
+        <title>mflix</title>
+      </Head>
 
     </div>
 

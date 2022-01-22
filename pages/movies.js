@@ -1,10 +1,15 @@
 import { connectToDatabase } from "../util/mongodb";
 import Movie from "../components/Movie";
 import Navbar from "../components/Navbar";
+import Head from "next/head";
 
 export default function Movies({ movies }) {
     return (
         <div className="">
+
+            <Head>
+                <title>mflix</title>
+            </Head>
 
             <Navbar />
 
@@ -32,6 +37,8 @@ export default function Movies({ movies }) {
 }
 
 export async function getStaticProps() {
+
+    // grab top 100 movies sorted by metacritic ratings
 
     const { db } = await connectToDatabase()
 

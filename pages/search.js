@@ -4,6 +4,7 @@ import Movie from '../components/Movie'
 import { connectToDatabase } from '../util/mongodb'
 import { debounce } from "lodash"
 import Navbar from '../components/Navbar'
+import Head from 'next/head'
 
 function Search({ movies }) {
 
@@ -11,6 +12,8 @@ function Search({ movies }) {
     const [foundMovies, setFoundMovies] = useState([])
 
 
+    // prevent updating search results every time user inputs. 
+    // Waits a little bit after latest input to show results
     const debouncedSearch = useCallback(
         debounce((searchQuery) => {
 
@@ -38,6 +41,12 @@ function Search({ movies }) {
 
 
         <div>
+
+
+            <Head>
+                <title>mflix: Search Movies</title>
+            </Head>
+
 
             <Navbar />
 
@@ -72,6 +81,9 @@ function Search({ movies }) {
 
 
 export async function getStaticProps() {
+
+    // grab all movies
+    // i know its not a good method, but i am not sure what else to do right now
 
     const { db } = await connectToDatabase()
 
