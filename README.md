@@ -4,6 +4,7 @@ mlfix uses the sample database that MongoDB Atlas provides called [sample_mflix]
 
 This project was made to learn, use, and get familiar with [Next.js](https://nextjs.org/) with [MongoDB](https://mongodb.com).
 
+View deployed app here: https://mflix-ypatel2022.vercel.app/movies
 
 # Setup
 *Note: These instructions assume that you already have [node.js](https://nodejs.org/en/), npm (comes with node.js), [git](https://git-scm.com/downloads), and [mongodb](https://www.mongodb.com/try/download/community) setup on your computer.*

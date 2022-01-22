@@ -1,18 +1,32 @@
+import { debounce } from 'lodash';
+import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState } from 'react'
-import Movie from '../components/Movie'
-import { connectToDatabase } from '../util/mongodb'
-import { debounce } from "lodash"
-import Navbar from '../components/Navbar'
-import Head from 'next/head'
+import { useCallback, useEffect, useState } from 'react';
+import Movie from '../../components/Movie';
+import Navbar from '../../components/Navbar';
 
-function Search(/*{ movies }*/) {
+function SearchResults({ movies }) {
 
     const router = useRouter()
 
     const [searchQuery, setSearchQuery] = useState('')
-    const [foundMovies, setFoundMovies] = useState([])
 
+
+    // separate list items with commas
+    function separateWithCommas(list) {
+        return list.join(', ')
+    }
+
+    // convert total runtime into mins and hours
+    function convertRuntime(runtime) {
+        if (runtime) {
+
+            const mins = runtime % 60;
+            const hours = (runtime - mins) / 60;
+            return `${hours}h ${mins}m`
+        }
+        return ''
+    }
 
     // prevent updating search results every time user inputs. 
     // Waits a little bit after latest input to show results
@@ -37,9 +51,6 @@ function Search(/*{ movies }*/) {
 
 
     return (
-
-
-
         <div>
 
 
@@ -57,7 +68,7 @@ function Search(/*{ movies }*/) {
 
                 <form method='post' onSubmit={(e) => {
 
-                    e.preventDefault()
+                    e.preventDefault();
 
                     router.push(`/search/${searchQuery}`)
                 }}>
@@ -71,6 +82,15 @@ function Search(/*{ movies }*/) {
 
 
 
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8 gap-4 mt-4">
+
+                    {movies.map((foundMovie) => (
+
+                        <Movie key={foundMovie._id} movie={foundMovie} />
+
+                    ))}
+
+                </div>
 
             </div>
 
@@ -79,20 +99,19 @@ function Search(/*{ movies }*/) {
 }
 
 
-export async function getStaticProps() {
+export async function getServerSideProps({ query }) {
+
+    // console.log(query);
+
+    // get todo data from API
+    const res = await fetch(`${process.env.API_ENDPOINT}/api/search/${query.query}`)
+    const movies = await res.json()
 
 
-    const { db } = await connectToDatabase()
-
-    const movies = await db
-        .collection("movies")
-        .find({ "_id": "doesnt exist" })
-        .toArray()
-
+    // return props
     return {
-        props: {
-            movies: JSON.parse(JSON.stringify(movies)),
-        },
+        props: { movies },
     }
 }
-export default Search
+
+export default SearchResults
