@@ -5,7 +5,7 @@ function Movie({ movie }) {
 
     movie = movie[0]
 
-    console.log(movie)
+    // console.log(movie)
 
 
     function separateWithCommas(list) {
@@ -34,7 +34,6 @@ function Movie({ movie }) {
                     id="img"
                 />
 
-                {/* {get_average_rgb(document.getElementById('img'))} */}
 
 
                 <div>
@@ -78,8 +77,6 @@ function Movie({ movie }) {
                 <p><span className='font-semibold text-lg'>Rotten Tomatoes</span> {movie?.tomatoes?.viewer?.meter}</p>
 
                 <p><span className='font-semibold text-lg'>IMDB</span> {movie?.imdb?.rating}</p>
-
-
 
 
             </div>

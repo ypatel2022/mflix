@@ -12,7 +12,7 @@ export default async (req, res) => {
     const movie = await db
         .collection("movies")
         .find({ "_id": movieObjectId })
-        .limit(20)
+        .limit(1)
         .toArray()
 
     res.json(movie)
